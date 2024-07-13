@@ -8,6 +8,7 @@ export const FooterStyle = styled.footer`
   justify-content: space-between;
   padding: 0rem 4.5rem 0rem 4.5rem;
   margin-top: 5%;
+  flex-wrap: wrap;
   p {
     color: #000;
     font-size: 1rem;
@@ -19,5 +20,12 @@ export const FooterStyle = styled.footer`
     display: flex;
     align-items: center;
     gap: 2rem;
+  }
+  @media (max-width: 998px) {
+    padding: 0rem 2.5rem 0rem 2.5rem;
+    flex-direction: column-reverse;
+  }
+  @media (max-width: 500px) {
+    padding: 1rem;
   }
 `;

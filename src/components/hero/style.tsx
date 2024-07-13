@@ -53,9 +53,14 @@ export const HeroStyle = styled.main`
   }
   @media (max-width: 998px) {
     flex-direction: column;
+    gap: 1.25rem;
+    padding: 0rem 2.5rem 0rem 2.5rem;
     .one,
     .img {
       width: 100%;
     }
   }
+  @media (max-width: 500px) {
+  padding: 0rem 1rem 0rem 1rem;
+  } 
 `;

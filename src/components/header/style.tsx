@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { AbsoluteContStyle } from "../dashboard/style";
 
 export const HeaderStyle = styled.header`
   display: flex;
@@ -37,7 +38,7 @@ export const HeaderStyle = styled.header`
       line-height: normal;
     }
   }
-  .fk{
+  .fk {
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -53,5 +54,45 @@ export const HeaderStyle = styled.header`
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+  }
+  @media (max-width: 728px) {
+    padding: 0rem 2.5rem 0rem 2.5rem;
+    .desktop {
+      display: none;
+    }
+  }
+  @media (max-width: 500px) {
+    padding: 0rem 1rem 0rem 1rem;
+  }
+  @media (min-width: 728px) {
+    .mobile {
+      display: none;
+    }
+  }
+`;
+
+export const MobileDropdownStyles = styled(AbsoluteContStyle)`
+  display: flex;
+  justify-content: right;
+  .right {
+    width: 70%;
+    height: 100vh;
+    background: #fff;
+    z-index: 3;
+    padding: 1.5rem 1.25rem 2rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+    .left{
+    cursor: pointer;
+    width: 30%;
+    }
+  .cx {
+    display: flex;
+    justify-content: right;
+  }
+  @media (min-width: 728px) {
+    display: none;
   }
 `;
