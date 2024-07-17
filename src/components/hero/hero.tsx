@@ -4,10 +4,7 @@ import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 
 export const Hero = () => {
-    const router = useRouter();
-     const handleClick =()=>{
-        router.push("/auth");
-     }
+  const router = useRouter();
   return (
     <HeroStyle>
       <div className="one">
@@ -19,7 +16,11 @@ export const Hero = () => {
           be. Get your brand assets in just a few minutes.
         </p>
         <div className="btn">
-          <motion.button type="button" whileTap={{ scale: 0.85 }} onClick={handleClick}>
+          <motion.button
+            type="button"
+            whileTap={{ scale: 0.85 }}
+            onClick={() => router.push("/auth/signup")}
+          >
             Get Started for free
           </motion.button>
         </div>
