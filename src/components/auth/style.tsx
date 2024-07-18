@@ -76,7 +76,7 @@ export const AuthFormStyles = styled.div`
         background: transparent;
       }
       input:-webkit-autofill {
-        -webkit-box-shadow: 0 0 0 30px #fff inset !important;
+        -webkit-box-shadow: 0 0 0 30px #e4f0f4 inset !important;
         -webkit-text-fill-color: #1f1e1e !important;
       }
     }

@@ -100,7 +100,10 @@ const Auth = () => {
           Cookies.set("token", data.token, { expires: inSetTime });
           Cookies.set("email", form.email);
           setIsLoading(false);
-          router.push("/dashboard");
+          toast.success("Login successful!");
+          setTimeout(() => {
+            router.push("/dashboard");
+          }, 1200);
         }
       } catch (error: any) {
         console.log(error);
