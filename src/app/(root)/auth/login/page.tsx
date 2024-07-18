@@ -89,7 +89,12 @@ const Auth = () => {
       // call signin API
       try {
         setIsLoading(true);
-        const { data } = await axios.post(`${BACKEND_URL}/v1/login`, form);
+        const body = {
+          email: form.email,
+          password: form.password
+        };
+        console.log(body);
+        const { data } = await axios.post(`${BACKEND_URL}/login`, body);
         if (data) {
           let inSetTime = new Date(new Date().getTime() + 2 * 60 * 60 * 1000);
           Cookies.set("token", data.token, { expires: inSetTime });
@@ -98,6 +103,7 @@ const Auth = () => {
           router.push("/dashboard");
         }
       } catch (error: any) {
+        console.log(error);
         setIsLoading(false);
         setPwd("");
         setPwdError({active : true, text : ""});

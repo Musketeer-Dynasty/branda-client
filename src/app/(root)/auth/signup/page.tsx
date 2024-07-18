@@ -168,7 +168,7 @@ const Auth = () => {
             password: form.pwd,
           };
           setIsLoading(true);
-          const { data } = await axios.post(`${BACKEND_URL}/v1/signup`, body);
+          const { data } = await axios.post(`${BACKEND_URL}/signup`, body);
           if (data) {
             // use a toastify message then redirect to login page
             setIsLoading(false);
@@ -178,6 +178,7 @@ const Auth = () => {
             }, 1200);
           }
         } catch (error: any) {
+          console.log(error);
           setIsLoading(false);
           // reset password field
           setPwd1("");

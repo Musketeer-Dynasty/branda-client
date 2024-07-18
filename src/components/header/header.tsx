@@ -3,6 +3,7 @@ import { Logo, MenuIcon, XIcon } from "../icons/header";
 import { HeaderStyle, MobileDropdownStyles } from "./style";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
 export const RootHeader = () => {
   const router = useRouter();
@@ -37,9 +38,9 @@ export const RootHeader = () => {
           <p>Services</p>
         </Link>
         <div className="btn">
-          <button type="button" onClick={CTA}>
+          <motion.button type="button" onClick={CTA} whileTap={{ scale: 0.85 }}>
             {pathname.includes("/auth/login") ? "Get Started" : "Login"}
-          </button>
+          </motion.button>
         </div>
       </div>
       <div className="mobile" onClick={() => setShowDropdown(true)}>
