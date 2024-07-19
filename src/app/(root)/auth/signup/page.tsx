@@ -162,12 +162,13 @@ const Auth = () => {
     ) {
         try {
           const body = {
-            firstName: form.fname,
-            lastName: form.fname,
+            firstname: form.fname,
+            lastname: form.fname,
             email: form.email,
             password: form.pwd,
           };
           setIsLoading(true);
+          console.log(body);
           const { data } = await axios.post(`${BACKEND_URL}/signup`, body);
           if (data) {
             // use a toastify message then redirect to login page

@@ -36,6 +36,7 @@ export const HeaderStyle = styled.header`
       font-style: normal;
       font-weight: 400;
       line-height: normal;
+      text-transform: uppercase;
     }
   }
   .fk {
@@ -63,8 +64,11 @@ export const HeaderStyle = styled.header`
   }
   @media (max-width: 500px) {
     padding: 0rem 1rem 0rem 1rem;
+    .desktop {
+      display: none;
+    }
   }
-  @media (min-width: 728px) {
+  @media (min-width: 500px) {
     .mobile {
       display: none;
     }
@@ -84,10 +88,10 @@ export const MobileDropdownStyles = styled(AbsoluteContStyle)`
     flex-direction: column;
     gap: 1.5rem;
   }
-    .left{
+  .left {
     cursor: pointer;
     width: 30%;
-    }
+  }
   .cx {
     display: flex;
     justify-content: right;

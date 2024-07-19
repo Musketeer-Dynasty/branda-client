@@ -9,6 +9,8 @@ export const HomeStyles = styled.div`
   .top {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
     justify-content: space-between;
     h3 {
       color: #000;
@@ -20,7 +22,7 @@ export const HomeStyles = styled.div`
     .other {
       display: flex;
       align-items: center;
-      gap: 1.12rem;
+      gap: 1.5rem;
       button {
         background: transparent;
         display: flex;
@@ -30,19 +32,21 @@ export const HomeStyles = styled.div`
         padding: 0.625rem;
         padding: 0rem 1rem 0rem 1rem;
         gap: 0.5rem;
-        border: 1px solid #5d5fef;
+        border: 1px solid #5d5fef;        
         p {
           color: var(--Iris-100, #5d5fef);
           font-size: 1rem;
           font-style: normal;
           font-weight: 400;
           line-height: normal;
+          white-space: nowrap;
         }
       }
     }
   }
   .inp {
     position: relative;
+    width: 100%;
     input {
       height: 40px;
       padding: 0.625rem;
@@ -63,9 +67,28 @@ export const HomeStyles = styled.div`
     gap: 0.625rem;
     flex-wrap: wrap;
   }
+  @media (max-width: 728px) {
+    padding: 0rem 2.5rem 0rem 2.5rem;
+  }
   @media (max-width: 500px) {
+    padding: 0rem 1rem 0rem 1rem;
+    gap: 1.5rem;
     .all-brands {
       flex-direction: column;
+      gap: 1rem;
+    }
+    .top {
+      flex-direction: column-reverse;
+      gap: 1rem;
+    }
+    .other {
+      flex-direction: column;
+    }
+    .inp form {
+      width: 100%;
+      input {
+        width: 100%;
+      }
     }
   }
   @media (min-width: 500px) {
@@ -152,7 +175,7 @@ export const ModalStyle = styled.div`
     gap: 1rem;
     width: 70%;
     overflow-x: scroll;
-    padding-bottom: 0.25rem;  
+    padding-bottom: 0.25rem;
     &::-webkit-scrollbar {
       width: 0.25rem; /* width of the scrollbar */
       background: #d9d9d9;
@@ -232,4 +255,9 @@ export const ModalStyle = styled.div`
       background: #5d5fef;
     }
   }
+    @media (max-width: 500px){
+    .details , .two{
+    flex-direction: column;
+    }
+    }
 `;

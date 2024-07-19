@@ -173,6 +173,7 @@ export const AuthFormStyles = styled.div`
   }
 
   @media (max-width: 998px) {
+  width: 50%;
     .form {
       width: 100%;
     }
@@ -191,6 +192,7 @@ export const AuthFormStyles = styled.div`
     }
   }
   @media (max-width: 500px) {
+  width: 90%;
     .form {
       width: 100%;
     }

@@ -91,14 +91,14 @@ const Auth = () => {
         setIsLoading(true);
         const body = {
           email: form.email,
-          password: form.password
+          password: form.password,
         };
         console.log(body);
         const { data } = await axios.post(`${BACKEND_URL}/login`, body);
         if (data) {
           let inSetTime = new Date(new Date().getTime() + 2 * 60 * 60 * 1000);
-          Cookies.set("token", data.token, { expires: inSetTime });
-          Cookies.set("email", form.email);
+          console.log(data);
+          Cookies.set("token", data.token.access_token, { expires: inSetTime });
           setIsLoading(false);
           toast.success("Login successful!");
           setTimeout(() => {
@@ -109,8 +109,8 @@ const Auth = () => {
         console.log(error);
         setIsLoading(false);
         setPwd("");
-        setPwdError({active : true, text : ""});
-        setForm({...form, password : ""});
+        setPwdError({ active: true, text: "" });
+        setForm({ ...form, password: "" });
         if (error.response) {
           toast.error(`${error.response.data.message}`);
         } else {
