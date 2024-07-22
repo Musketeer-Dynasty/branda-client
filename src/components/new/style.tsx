@@ -16,19 +16,28 @@ export const DashboardStyle = styled.div`
     align-items: stretch;
   }
   @media (max-width: 998px) {
+    padding: 0rem 3.5rem 0rem 3.5rem;
     .cont {
       width: 70%;
+      min-height: 40vh;
+    }
+  }
+  @media (max-width: 728px) {
+    padding: 0rem 2.5rem 0rem 2.5rem;
+    .cont{
+    min-height: 40vh;
     }
   }
   @media (max-width: 500px) {
+    padding: 0rem 1rem 0rem 1rem;
     .cont {
-      width: 95%;
+      width: 100%;
     }
   }
 `;
 
 export const FirstFormStyle = styled.div`
-  padding: 2.5rem 2.5rem 2.5rem 2.5rem;
+  padding: 2.5rem;
   border-radius: 0.625rem;
   border: 1px solid #000;
   background: #fff;
@@ -92,6 +101,12 @@ export const FirstFormStyle = styled.div`
   }
   .error-bdr {
     border: 1px solid red;
+  }
+  @media (max-width: 728px) {
+    padding: 2rem;
+  }
+  @media (max-width: 500px) {
+    padding: 1.5rem;
   }
 `;
 
@@ -171,6 +186,12 @@ export const MultiStepFormStyle = styled.div`
     &::-webkit-scrollbar {
       display: none;
     }
+  }
+  @media (max-width: 728px) {
+    padding: 2rem;
+  }
+  @media (max-width: 500px) {
+    padding: 1.5rem;
   }
 `;
 

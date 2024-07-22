@@ -18,6 +18,7 @@ import Link from "next/link";
 import { ButtonLoader } from "@/components/icons/dashboard";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { extractMessage } from "@/utils/partErrorMsg";
 
 interface IForm {
   email: string;
@@ -93,7 +94,7 @@ const Auth = () => {
           email: form.email,
           password: form.password,
         };
-        console.log(body);
+
         const { data } = await axios.post(`${BACKEND_URL}/login`, body);
         if (data) {
           let inSetTime = new Date(new Date().getTime() + 2 * 60 * 60 * 1000);
@@ -106,13 +107,13 @@ const Auth = () => {
           }, 1200);
         }
       } catch (error: any) {
-        console.log(error);
+        // console.log(extractMessage(error.response.data.detail) ,error.response.data);
         setIsLoading(false);
         setPwd("");
         setPwdError({ active: true, text: "" });
         setForm({ ...form, password: "" });
         if (error.response) {
-          toast.error(`${error.response.data.message}`);
+          toast.error(`${error.response.data.detail}`);
         } else {
           toast.error(`${error.message}`);
         }

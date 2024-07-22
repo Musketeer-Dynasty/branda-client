@@ -48,7 +48,7 @@ export const RootHeader = () => {
           </motion.button>
         </div>
       </div>
-      <div className="mobile" onClick={() => setShowDropdown(true)}>
+      <div className="mobile menu" onClick={() => setShowDropdown(true)}>
         <MenuIcon />
       </div>
       {showDropdown && (
@@ -101,14 +101,16 @@ export const DashboardHeader = () => {
         Authorization: `Bearer ${token}`,
       },
     };
-    console.log(token);
+    // console.log(token);
     axios
       .get(`${BACKEND_URL}/users/me`, config)
       .then((res) => {
-        setUser({
-          fname: res.data.data.firstname,
-          lname: res.data.data.lastname,
-        });
+        if (res.data) {
+          setUser({
+            fname: res.data.data.firstname,
+            lname: res.data.data.lastname,
+          });
+        }
       })
       .catch((error: any) => {
         console.log(error);
@@ -128,7 +130,7 @@ export const DashboardHeader = () => {
       <div className="links desktop">
         <div className="fk">
           <div className="circle">
-            <h5>{user && user.fname[0] + user.lname[0]}</h5>
+            <h5>{user.fname !== "" && user.fname[0] + user.lname[0]}</h5>
           </div>
           <p>{user.fname + " " + user.lname}</p>
         </div>

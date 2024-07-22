@@ -43,6 +43,9 @@ export const HeaderStyle = styled.header`
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    p {
+      text-transform: capitalize;
+    }
   }
   button {
     background: #5d5fef;
@@ -56,6 +59,9 @@ export const HeaderStyle = styled.header`
     font-weight: 400;
     line-height: normal;
   }
+  .menu, .x {
+    cursor: pointer;
+  }
   @media (max-width: 728px) {
     padding: 0rem 2.5rem 0rem 2.5rem;
     .desktop {
@@ -68,7 +74,7 @@ export const HeaderStyle = styled.header`
       display: none;
     }
   }
-  @media (min-width: 500px) {
+  @media (min-width: 728px) {
     .mobile {
       display: none;
     }

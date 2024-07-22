@@ -32,7 +32,7 @@ export const HomeStyles = styled.div`
         padding: 0.625rem;
         padding: 0rem 1rem 0rem 1rem;
         gap: 0.5rem;
-        border: 1px solid #5d5fef;        
+        border: 1px solid #5d5fef;
         p {
           color: var(--Iris-100, #5d5fef);
           font-size: 1rem;
@@ -64,7 +64,7 @@ export const HomeStyles = styled.div`
   }
   .all-brands {
     display: flex;
-    gap: 0.625rem;
+    gap: 1rem;
     flex-wrap: wrap;
   }
   @media (max-width: 728px) {
@@ -168,6 +168,25 @@ export const ModalStyle = styled.div`
     flex-direction: column;
     gap: 1rem;
     width: 30%;
+    position: relative;
+    height: 250px;
+    overflow-y: scroll;
+    &::-webkit-scrollbar {
+      width: 0.25rem; /* width of the scrollbar */
+      background: #d9d9d9;
+      border-radius: 0.125rem;
+      height: 0.25rem;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: #d9d9d9;
+      width: 0.25rem;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      border-radius: 0.25rem;
+      background: #5d5fef;
+    }
   }
   .details-2 {
     display: flex;
@@ -255,9 +274,31 @@ export const ModalStyle = styled.div`
       background: #5d5fef;
     }
   }
-    @media (max-width: 500px){
-    .details , .two{
-    flex-direction: column;
+  @media (max-width: 998px) {
+    padding: 2.5rem 2.5rem 1.5rem 2.5rem;
+  }
+  @media (max-width: 728px) {
+    padding: 2rem;
+  }
+  @media (max-width: 500px) {
+    max-width: 95%;
+    padding: 1.5rem;
+    gap: 1.5rem;
+    .two {
+      flex-direction: column;
+      gap: 1.5rem;
     }
+    .details {
+      flex-direction: row;
+      flex-wrap: wrap;
+      width: 100%;
+      height: 100px;
     }
+    .details-2 {
+      width: 100%;
+    }
+    .three {
+      justify-content: right;
+    }
+  }
 `;
