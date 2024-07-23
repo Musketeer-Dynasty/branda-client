@@ -24,8 +24,8 @@ export const DashboardStyle = styled.div`
   }
   @media (max-width: 728px) {
     padding: 0rem 2.5rem 0rem 2.5rem;
-    .cont{
-    min-height: 40vh;
+    .cont {
+      min-height: 40vh;
     }
   }
   @media (max-width: 500px) {
@@ -138,10 +138,32 @@ export const DropdownStyles = styled.div`
     gap: 0.75rem;
     height: 130px;
     overflow-y: scroll;
+    overflow-x: hidden;
     border-radius: 0.3125rem;
     border: 1px solid #e4e7ec;
     background: #fff;
     padding: 1rem 0.5rem 1rem 1rem;
+    &::-webkit-scrollbar {
+      width: 0.25rem; /* width of the scrollbar */
+      background: #d9d9d9;
+      border-radius: 0.125rem;
+      height: 0.25rem;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: #d9d9d9;
+      width: 0.25rem;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      border-radius: 0.25rem;
+      background: #5d5fef;
+    }
+  }
+  @media (max-width: 500px) {
+    .dropdown {
+      padding: 1rem 0.5rem 1rem 0.5rem;
+    }
   }
 `;
 

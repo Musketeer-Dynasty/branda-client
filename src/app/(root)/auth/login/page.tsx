@@ -94,11 +94,9 @@ const Auth = () => {
           email: form.email,
           password: form.password,
         };
-
         const { data } = await axios.post(`${BACKEND_URL}/login`, body);
         if (data) {
           let inSetTime = new Date(new Date().getTime() + 2 * 60 * 60 * 1000);
-          console.log(data);
           Cookies.set("token", data.token.access_token, { expires: inSetTime });
           setIsLoading(false);
           toast.success("Login successful!");
@@ -113,7 +111,7 @@ const Auth = () => {
         setPwdError({ active: true, text: "" });
         setForm({ ...form, password: "" });
         if (error.response) {
-          toast.error(`${error.response.data.detail}`);
+          toast.error(`${extractMessage(error.response.data.detail)}`);
         } else {
           toast.error(`${error.message}`);
         }

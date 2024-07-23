@@ -1,9 +1,10 @@
 export const extractMessage = (errorStr: string) => {
-  // Parse the stringified object into a JavaScript object
-  const errorObj = JSON.parse(errorStr);
-
-  // Get the first key in the object
-  const key = Object.keys(errorObj)[0];
-  // Return the 'message' value associated with that key
-  return errorObj[key].message;
+  // split string using : as separator, split again using ' as separator, then pick the middle element
+  const errorArray = errorStr.split(":");
+  let newArray = errorArray[2].split("'");
+  if(newArray[1] === undefined){
+      return errorStr
+  }else{
+    return newArray[1]
+  }
 };

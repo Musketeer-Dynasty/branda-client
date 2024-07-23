@@ -12,27 +12,30 @@ import {
   ArrowStyles,
   ButtonLoader,
 } from "@/components/icons/dashboard";
-import { Countries, INiche, Niches } from "@/components/new/data";
+import { Niches, INiche, Industries } from "@/components/new/data";
 import { MultiStepForm } from "@/components/new/new";
 import { Ierror } from "../page";
+import { BACKEND_URL } from "@/lib/config";
+import axios from "axios";
+import Cookies from "js-cookie";
 
 interface IForm {
+  industry: string;
   niche: string;
-  country: string;
   target: string;
   description: string;
 }
 export default function Home() {
   const [formLevel, setFormLevel] = useState(0);
-  const [showNicheDropdown, setShowNicheDropdown] = useState(false);
-  const [showCountryDropdown, setShowCountryDropdown] = useState(false);
-  const [niche, setNiche] = useState<INiche | null>(null);
-  const [allNiches, setAllNiches] = useState(Niches);
-  const [country, setCountry] = useState<INiche | null>(null);
-  const [allCountries, setAllCountries] = useState(Countries);
+  const [showindustryDropdown, setShowindustryDropdown] = useState(false);
+  const [shownicheDropdown, setShownicheDropdown] = useState(false);
+  const [industry, setindustry] = useState<INiche | null>(null);
+  const [allIndustries, setAllIndustries] = useState(Industries);
+  const [niche, setniche] = useState<INiche | null>(null);
+  const [allNiches, setAllNiches] = useState<INiche[]>([]);
   const [form, setForm] = useState<IForm>({
+    industry: "",
     niche: "",
-    country: "",
     target: "",
     description: "",
   });
@@ -49,15 +52,23 @@ export default function Home() {
     text: "",
   });
   useEffect(() => {
-    const selectedNiche = allNiches.find((ele) => ele.isSelected === true);
-    const selectedCountry = allCountries.find((ele) => ele.isSelected === true);
-    if (selectedNiche) {
-      setNiche(selectedNiche);
+    const selectedIndustry = allIndustries.find(
+      (ele) => ele.isSelected === true
+    );
+    const selectedniche = allNiches.find((ele) => ele.isSelected === true);
+    if (selectedIndustry) {
+      setindustry(selectedIndustry);
     }
-    if (selectedCountry) {
-      setCountry(selectedCountry);
+    if (selectedniche) {
+      setniche(selectedniche);
     }
-  }, [allNiches, allCountries]);
+  }, [allIndustries, allNiches]);
+
+  useEffect(() => {
+    setAllNiches(
+      Niches.filter((ele) => ele.industry === industry?.name.toLowerCase())
+    );
+  }, [industry?.name]);
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLTextAreaElement>,
@@ -82,33 +93,55 @@ export default function Home() {
       }
     }
   };
+  const selectIndustry = (name: string) => {
+    const newList = allIndustries.map((ele) => {
+      return { ...ele, isSelected: ele.name === name };
+    });
+    setAllNiches(Niches);
+    setniche(null);
+    setForm({ ...form, industry: name });
+    setAllIndustries(newList);
+    setShowindustryDropdown(false);
+  };
   const selectNiche = (name: string) => {
     const newList = allNiches.map((ele) => {
       return { ...ele, isSelected: ele.name === name };
     });
     setForm({ ...form, niche: name });
     setAllNiches(newList);
-    setShowNicheDropdown(false);
-  };
-  const selectCountry = (name: string) => {
-    const newList = allCountries.map((ele) => {
-      return { ...ele, isSelected: ele.name === name };
-    });
-    setForm({ ...form, country: name });
-    setAllCountries(newList);
-    setShowCountryDropdown(false);
+    setShownicheDropdown(false);
   };
   const [isLoading, setLoading] = useState(false);
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault(); // Prevent default form submission
-    setLoading(true);
-    setTimeout(() => {
-      console.log(form, "submitted");
-      setLoading(false);
-      setFormLevel(1);
-    }, 1500);
+    // setTimeout(() => {
+    //   console.log(form, "submitted");
+    //   setLoading(false);
+    //   setFormLevel(1);
+    // }, 1500);
     // call API
     // move to multistep form
+    try {
+      setLoading(true);
+      const token = Cookies.get("token");
+      const body = {
+        niche: form.niche,
+        industry: form.industry,
+      };
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        }
+      };
+      const { data } = await axios.get(`${BACKEND_URL}/brand_name`,config);
+      if (data) {
+        console.log(data);
+        setLoading(false);
+      }
+    } catch (error: any) {
+      setLoading(false);
+      console.log(error);
+    }
   };
   return (
     <DashboardStyle>
@@ -118,24 +151,28 @@ export default function Home() {
             <h3>Kindly Provide your brand details</h3>
             <form className="form" onSubmit={handleSubmit}>
               <div className="form-ele">
-                <label htmlFor="">Niche</label>
+                <label htmlFor="">Industry</label>
                 <DropdownStyles>
                   <div
                     className="head"
-                    onClick={() => setShowNicheDropdown(!showNicheDropdown)}
+                    onClick={() =>
+                      setShowindustryDropdown(!showindustryDropdown)
+                    }
                   >
-                    <p>{niche === null ? "Select Niche" : niche.name}</p>
-                    <ArrowStyles $isSelected={showNicheDropdown}>
+                    <p>
+                      {industry === null ? "Select industry" : industry.name}
+                    </p>
+                    <ArrowStyles $isSelected={showindustryDropdown}>
                       <AngleDown />
                     </ArrowStyles>
                   </div>
-                  {showNicheDropdown && (
+                  {showindustryDropdown && (
                     <div className="dropdown">
-                      {allNiches.map((ele, index) => (
+                      {allIndustries.map((ele, index) => (
                         <DropCompStyles
-                          $isSelected={niche?.name === ele.name}
+                          $isSelected={industry?.name === ele.name}
                           key={index}
-                          onClick={() => selectNiche(ele.name)}
+                          onClick={() => selectIndustry(ele.name)}
                         >
                           <p>{ele.name}</p>
                         </DropCompStyles>
@@ -145,24 +182,24 @@ export default function Home() {
                 </DropdownStyles>
               </div>
               <div className="form-ele">
-                <label htmlFor="">Country</label>
+                <label htmlFor="">Niche</label>
                 <DropdownStyles>
                   <div
                     className="head"
-                    onClick={() => setShowCountryDropdown(!showCountryDropdown)}
+                    onClick={() => setShownicheDropdown(!shownicheDropdown)}
                   >
-                    <p>{country === null ? "Select Country" : country.name}</p>
-                    <ArrowStyles $isSelected={showCountryDropdown}>
+                    <p>{niche === null ? "Select industry" : niche.name}</p>
+                    <ArrowStyles $isSelected={shownicheDropdown}>
                       <AngleDown />
                     </ArrowStyles>
                   </div>
-                  {showCountryDropdown && (
+                  {shownicheDropdown && (
                     <div className="dropdown">
-                      {allCountries.map((ele, index) => (
+                      {allNiches.map((ele, index) => (
                         <DropCompStyles
-                          $isSelected={country?.name === ele.name}
+                          $isSelected={niche?.name === ele.name}
                           key={index}
-                          onClick={() => selectCountry(ele.name)}
+                          onClick={() => selectNiche(ele.name)}
                         >
                           <p>{ele.name}</p>
                         </DropCompStyles>
@@ -198,8 +235,8 @@ export default function Home() {
                   type="submit"
                   whileTap={{ scale: 0.85 }}
                   disabled={
-                    country == null ||
                     niche == null ||
+                    industry == null ||
                     target === "" ||
                     description === "" ||
                     targetError.active !== false ||
