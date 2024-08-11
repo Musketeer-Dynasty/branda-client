@@ -51,6 +51,7 @@ export const HomeStyles = styled.div`
       height: 40px;
       padding: 0.625rem;
       background: #f5f5f5;
+      border: 1px solid #007BFF; 
     }
     .abs {
       position: absolute;

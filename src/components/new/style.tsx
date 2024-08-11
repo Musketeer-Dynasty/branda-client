@@ -67,7 +67,7 @@ export const FirstFormStyle = styled.div`
       height: 5rem;
       padding: 0.625rem;
       width: 100%;
-      background: #f5f5f5;
+      background: hsl(0, 0%, 90%);
     }
   }
   .desc {
@@ -75,7 +75,7 @@ export const FirstFormStyle = styled.div`
       height: 6.375rem;
       padding: 0.625rem;
       width: 100%;
-      background: #f5f5f5;
+      background: hsl(0, 0%, 90%);
     }
   }
   .btn {
@@ -118,7 +118,7 @@ export const DropdownStyles = styled.div`
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    background: #f5f5f5;
+    background: hsl(0, 0%, 90%);
     padding: 0.625rem;
     p {
       color: #000;
@@ -293,6 +293,62 @@ export const VaryingStepStyle = styled(motion.div).attrs(() => ({
       font-style: normal;
       font-weight: 400;
       line-height: normal;
+    }
+  }
+`;
+
+export const VerticallyAlignedOptions = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  min-height: 100px;
+`;
+
+export const HorizontallyAlignedOptions = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  min-height: 100px;
+`;
+
+interface IOptionStyle {
+  $fontsize?: string;
+}
+export const OptionStyle = styled.div<IOptionStyle>`
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.93rem;
+  display: flex;
+  width: fit-content;
+  .x {
+    margin-top: 0.25rem;
+  }
+  p {
+    color: #000;
+    font-size: ${(props) => (props.$fontsize ? props.$fontsize : "1.25rem")};
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+`;
+export const ImageOptionStyle = styled.div<IOptionStyle>`
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  width: 50%;
+  height: 100%;
+  position: relative;
+  .x {
+    position: absolute;
+    top: 0;
+    margin-top: 0.5rem;
+    margin-left: 0.5rem;
+  }
+  .img {
+    img {
+      width: 100%;
+      height: auto;
     }
   }
 `;

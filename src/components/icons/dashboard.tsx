@@ -69,3 +69,42 @@ export const ButtonLoader = styled.div`
   margin: auto;
   animation: ${Rotate} 0.6s ease infinite;
 `;
+
+export const ColoredButtonLoader = styled.div`
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 4px solid #5D5FEF;
+  border-top: 4px solid transparent;
+  margin: auto;
+  animation: ${Rotate} 0.6s ease infinite;
+`;
+
+
+export const BulletPoint = () => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+    >
+      <circle cx="10" cy="10" r="9.5" fill="#D9D9D9" stroke="#5D5FEF" />
+    </svg>
+  );
+};
+export const SelectedBulletPoint = () => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+    >
+      <circle cx="10" cy="10" r="9.5" fill="#D9D9D9" stroke="#5D5FEF" />
+      <circle cx="10" cy="10" r="5.5" fill="#5D5FEF" />
+    </svg>
+  );
+};

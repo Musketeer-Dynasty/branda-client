@@ -95,6 +95,7 @@ export const DashboardHeader = () => {
   const router = useRouter();
   const token = Cookies.get("token");
   const [user, setUser] = useState<IUser>({ fname: "", lname: "" });
+  // console.log(token);
   useEffect(() => {
     const config = {
       headers: {
@@ -106,6 +107,7 @@ export const DashboardHeader = () => {
       .get(`${BACKEND_URL}/users/me`, config)
       .then((res) => {
         if (res.data) {
+          Cookies.set("name",res.data.data.firstname);
           setUser({
             fname: res.data.data.firstname,
             lname: res.data.data.lastname,
@@ -212,6 +214,7 @@ export const LogoutModal: React.FC<ILogoutActionsModal> = ({
     // remove token from jscookie
     Cookies.set("token", "");
     Cookies.set("email", "");
+    Cookies.set("name", "");
     if (naviHref) {
       router.push(naviHref);
     } else {
@@ -242,7 +245,7 @@ export const LogoutModal: React.FC<ILogoutActionsModal> = ({
               onClick={handleLogout}
               disabled={isloggingout}
             >
-              {isloggingout ? "Logging out" : "Sign Out"}
+              {isloggingout ? "Logging out..." : "Sign Out"}
             </button>
           </div>
         </div>

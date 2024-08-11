@@ -18,6 +18,9 @@ import { Ierror } from "../page";
 import { BACKEND_URL } from "@/lib/config";
 import axios from "axios";
 import Cookies from "js-cookie";
+import { extractMessage } from "@/utils/partErrorMsg";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 interface IForm {
   industry: string;
@@ -112,14 +115,9 @@ export default function Home() {
     setShownicheDropdown(false);
   };
   const [isLoading, setLoading] = useState(false);
+  const [brandNameData, setBrandNameData] = useState<string[] | null>(null);
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault(); // Prevent default form submission
-    // setTimeout(() => {
-    //   console.log(form, "submitted");
-    //   setLoading(false);
-    //   setFormLevel(1);
-    // }, 1500);
-    // call API
     // move to multistep form
     try {
       setLoading(true);
@@ -128,24 +126,32 @@ export default function Home() {
         niche: form.niche,
         industry: form.industry,
       };
-      const config = {
+      const { data } = await axios.get(`${BACKEND_URL}/brand_name`, {
+        params: body,
         headers: {
           Authorization: `Bearer ${token}`,
-        }
-      };
-      const { data } = await axios.get(`${BACKEND_URL}/brand_name`,config);
+        },
+      });
       if (data) {
-        console.log(data);
+        setBrandNameData(data.data);
+        const name = Cookies.get("name");
         setLoading(false);
+        toast.success(`Goodluck ${name}!`);
+        setFormLevel(1);
       }
     } catch (error: any) {
       setLoading(false);
-      console.log(error);
+      if (error.response) {
+        toast.error(`${extractMessage(error.response.data.detail)}`);
+      } else {
+        toast.error(`${error.message}`);
+      }
     }
   };
   return (
     <DashboardStyle>
       <div className="cont">
+        <ToastContainer />
         {formLevel === 0 && (
           <FirstFormStyle>
             <h3>Kindly Provide your brand details</h3>
@@ -188,7 +194,13 @@ export default function Home() {
                     className="head"
                     onClick={() => setShownicheDropdown(!shownicheDropdown)}
                   >
-                    <p>{niche === null ? "Select industry" : niche.name}</p>
+                    <p>
+                      {industry === null
+                        ? "Select An industry"
+                        : niche === null
+                        ? "Select Niche"
+                        : niche.name}
+                    </p>
                     <ArrowStyles $isSelected={shownicheDropdown}>
                       <AngleDown />
                     </ArrowStyles>
@@ -249,7 +261,13 @@ export default function Home() {
             </form>
           </FirstFormStyle>
         )}
-        {formLevel === 1 && <MultiStepForm />}
+        {formLevel === 1 && brandNameData !== null && (
+          <MultiStepForm
+            brandNameArray={brandNameData}
+            selectedNiche={form.niche}
+            selectedIndustry={form.industry}
+          />
+        )}
       </div>
     </DashboardStyle>
   );
